@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "仿Element组件库"
-  text: "Nice Try"
+  name: "Simple ElementUI"
+  text: "学习成长"
   tagline: My great project tagline
   actions:
     - theme: brand

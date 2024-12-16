@@ -2,8 +2,8 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "仿Element组件库",
-  description: "Nice Try",
+  title: "Simple ElementUI",
+  description: "学习成长",
   base: "/toy-element/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
