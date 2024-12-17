@@ -47,14 +47,21 @@ jobs:
       - name: Build docs
         run: npm run docs:build
 
+      - name: Debug directory structure
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Directory contents:"
+          ls -R packages/docs/
+
       - name: List dist content
-        run: ls -R ./packages/docs/.vitepress/dist
+        run: ls -R packages/docs/dist
 
       - name: Upload docs
         uses: actions/upload-artifact@v3
         with:
           name: docs
-          path: ./packages/docs/.vitepress/dist
+          path: packages/docs/dist
 
   deploy:
     name: Deploy to GitHub Pages
