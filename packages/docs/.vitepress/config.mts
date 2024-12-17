@@ -5,7 +5,7 @@ export default defineConfig({
   title: "Simple ElementUI",
   description: "学习成长",
   base: "/toy-element/",
-  outDir: "../dist", // 相对于 `docs/.vitepress/` 的路径
+  outDir: "dist", // 相对于 `docs/.vitepress/` 的路径
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

@@ -55,13 +55,13 @@ jobs:
           ls -R packages/docs/
 
       - name: List dist content
-        run: ls -R packages/docs/dist
+        run: ls -R packages/docs/.vitepress/dist
 
       - name: Upload docs
         uses: actions/upload-artifact@v3
         with:
           name: docs
-          path: packages/docs/dist
+          path: packages/docs/.vitepress/dist
 
   deploy:
     name: Deploy to GitHub Pages
