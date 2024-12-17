@@ -4,7 +4,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "Simple-elementUI",
   description: "学习成长",
-  base: "/toy-element/",
+  base: "/Simple-elementUI/",
   outDir: "dist", // 相对于 `docs/.vitepress/` 的路径
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
