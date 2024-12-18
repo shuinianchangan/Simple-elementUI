@@ -21,6 +21,18 @@ export interface ButtonProps {
   throttleDuration?: number;
 }
 
+export interface ButtonGroupProps {
+  type?: ButtonType;
+  size?: ButtonSize;
+  disabled?: boolean;
+}
+
+export interface ButtonGroupContext {
+  type?: ButtonType;
+  size?: ButtonSize;
+  disabled?: boolean;
+}
+
 // 定义一个函数接口，确定参数和返回值
 export interface ButtonEmits {
   (e: "click", value: MouseEvent): void;
