@@ -38,6 +38,8 @@ const type = computed(() => {
 const disabled = computed(() => {
   return buttonGroupCtx?.disabled || props?.disabled || false;
 });
+
+// 让父组件可以直接访问按钮DOM
 defineExpose<ButtonInstance>({
   ref: _ref,
 });

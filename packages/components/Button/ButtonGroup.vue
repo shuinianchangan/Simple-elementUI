@@ -9,6 +9,7 @@ defineOptions({
 
 const props = defineProps<ButtonGroupProps>();
 
+// toRef 创建了与原始 props 的响应式引用
 // 注入，且交互式统一管理，在父组件变换时，子组件也跟着变换
 provide(
   BUTTON_GROUP_CTX_KEY,
