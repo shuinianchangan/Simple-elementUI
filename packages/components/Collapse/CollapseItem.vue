@@ -3,6 +3,7 @@ import { computed, inject } from "vue";
 import ErIcon from "../Icon/Icon.vue";
 import type { CollapseItemProps } from "./type";
 import { COLLAPSE_CTX_KEY } from "./constants";
+import transitionEvents from "./transitionEvents";
 
 defineOptions({
   name: "ErCollapseItem",
@@ -46,7 +47,7 @@ function handleClick() {
       <er-icon icon="angle-right" class="header-angle" />
     </div>
   </div>
-  <transition name="slide">
+  <transition name="slide" v-on="transitionEvents">
     <div class="er-collapse-item__wapper" v-show="isActive">
       <div class="er-collapse-item__content" :id="`item-content-${name}`">
         <slot></slot>

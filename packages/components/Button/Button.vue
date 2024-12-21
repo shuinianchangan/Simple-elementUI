@@ -39,7 +39,7 @@ const disabled = computed(() => {
   return buttonGroupCtx?.disabled || props?.disabled || false;
 });
 
-// 让父组件可以直接访问按钮DOM
+// 让父组件可以直接访问按钮DOM,而不是er-button实例
 defineExpose<ButtonInstance>({
   ref: _ref,
 });

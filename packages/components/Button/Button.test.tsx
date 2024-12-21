@@ -1,7 +1,6 @@
 import { describe, test, it, expect, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 import type { ButtonType, ButtonSize } from "./type";
-
 import Icon from "../Icon/Icon.vue";
 import Button from "./Button.vue";
 import ButtonGroup from "./ButtonGroup.vue";
