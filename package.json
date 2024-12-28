@@ -30,7 +30,8 @@
     "typescript": "^5.2.2",
     "vite": "^5.1.4",
     "vitest": "^1.4.0",
-    "vue-tsc": "^1.8.27"
+    "vue-tsc": "^1.8.27",
+    "@popperjs/core": "^2.11.8"
   },
   "dependencies": {
     "lodash-es": "^4.17.21",

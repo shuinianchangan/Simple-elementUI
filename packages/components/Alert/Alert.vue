@@ -20,7 +20,7 @@ const slots = useSlots();
 
 function close() {
   visible.value = false;
-  //   向父组件触发事件
+  //   向父组件触发事件，事件向上原则
   emits("close");
 }
 function open() {
