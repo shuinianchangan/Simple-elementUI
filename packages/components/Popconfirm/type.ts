@@ -10,9 +10,10 @@ export type PopconfirmProps = {
   iconColor?: string;
   hideIcon?: boolean;
   hideAfter?: number;
-  width?: string;
+  width?: number;
 };
 
+// 什么时候定义emits，什么时候定义instance？
 export interface PopconfirmEmits {
   (e: "confirm", value: MouseEvent): void;
   (e: "cancel", value: MouseEvent): void;
