@@ -4,7 +4,8 @@ import type { TooltipProps, TooltipEmits, TooltipInstance } from "./type";
 import { bind, debounce, type DebouncedFunc } from "lodash-es";
 import { createPopper, type Instance } from "@popperjs/core";
 import { useClickOutside } from "@toy-element/hooks";
-import useEvenstToTiggerNode from "./useEventToTriggerNode";
+import { useEvenstToTriggerNode } from "./useEventToTriggerNode";
+import type { ButtonInstance } from "../Button/type";
 
 defineOptions({
   name: "ErTooltip",
@@ -15,7 +16,7 @@ interface _TooltipProps extends TooltipProps {
   // 而是通过 virtual-ref 指定的参考元素来实现。
   virtualTriggering?: boolean;
   // 指定虚拟触发的参考元素
-  virtualRef?: HTMLElement | void;
+  virtualRef?: HTMLElement | ButtonInstance | void;
 }
 
 const props = withDefaults(defineProps<_TooltipProps>(), {
@@ -68,6 +69,7 @@ const closeDelay = computed(() =>
 let openDebounce: DebouncedFunc<() => void> | void;
 let closeDebounce: DebouncedFunc<() => void> | void;
 
+// 延时打开和关闭
 function openFinal() {
   closeDebounce?.cancel();
   openDebounce?.();
@@ -128,16 +130,20 @@ function resetEvents() {
   attachEvents(props.trigger);
 }
 
-useEvenstToTiggerNode(props, triggerNode, events, closeFinal);
+useEvenstToTriggerNode(props, triggerNode, events, () => {
+  openDebounce?.cancel();
+  // 直接关闭，而不使用closeFinal，因为closeFinal会触发openDebounce
+  setVisible(false);
+});
 
 // 直接引用型，用于监听ref对象
 watch(
   visible,
   (value) => {
     if (!value) return;
-    if (_triggerNode.value && popperNode.value) {
+    if (triggerNode.value && popperNode.value) {
       popperInstance = createPopper(
-        _triggerNode.value,
+        triggerNode.value,
         popperNode.value,
         popperOptions.value
       );
@@ -156,8 +162,10 @@ watch(
   () => props.manual,
   (isManual) => {
     if (isManual) {
-      destroyPopperInstance();
-      resetEvents();
+      events.value = {};
+      outerEvents.value = {};
+      dropdownEvents.value = {};
+      return;
     }
     attachEvents(props.trigger);
   }
@@ -177,7 +185,6 @@ watch(
     visible.value = false;
     emit("visible-change", false);
     resetEvents();
-    if (!val) attachEvents(props.trigger);
   }
 );
 

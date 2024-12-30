@@ -81,6 +81,7 @@ describe("Popconfirm.vue", () => {
   });
 
   test("popconfirm emits", async () => {
+    // 使用JSX格式进行测试
     const wrapper = mount(() => (
       <div>
         <div id="outside"></div>

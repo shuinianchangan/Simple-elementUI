@@ -15,7 +15,7 @@ import type { TooltipProps } from "./type";
 //   click: handleClick
 // };  // hook 会自动处理事件的重新绑定
 
-export function useEvenstToTiggerNode(
+export function useEvenstToTriggerNode(
   props: TooltipProps & { virtualTriggering?: boolean },
   triggerNode: ComputedRef<HTMLElement | undefined>,
   events: Ref<Record<string, EventListener>>,
@@ -27,17 +27,17 @@ export function useEvenstToTiggerNode(
 
   const _eventHandleMap = new Map();
 
-  const _bindEventToVirtualTiggerNode = () => {
-    const el = triggerNode.value;
+  const _bindEventToVirtualTiggerNode = (el?: HTMLElement) => {
     isElement(el) &&
       each(events.value, (fn, event) => {
         _eventHandleMap.set(event, fn);
         el?.addEventListener(event as keyof HTMLElementEventMap, fn);
       });
+
+    console.log("el", el);
   };
 
-  const _unbindEventToVirtualTiggerNode = () => {
-    const el = triggerNode.value;
+  const _unbindEventToVirtualTiggerNode = (el?: HTMLElement) => {
     isElement(el) &&
       each(
         ["mouseenter", "click", "contextmenu"],
@@ -52,7 +52,15 @@ export function useEvenstToTiggerNode(
     // 监听触发节点的变化
     watchTriggerNodeStopHandle = watch(
       triggerNode,
-      () => props.virtualTriggering && _bindEventToVirtualTiggerNode(),
+      (newNode, oldNode) => {
+        if (props.virtualTriggering) {
+          if (oldNode) {
+            _unbindEventToVirtualTiggerNode(oldNode);
+            console.log("clear oldNode event", oldNode);
+          }
+          _bindEventToVirtualTiggerNode(newNode);
+        }
+      },
       { immediate: true }
     );
 
@@ -61,8 +69,8 @@ export function useEvenstToTiggerNode(
       events,
       () => {
         if (!props.virtualTriggering) return;
-        _unbindEventToVirtualTiggerNode();
-        _bindEventToVirtualTiggerNode();
+        _unbindEventToVirtualTiggerNode(triggerNode.value);
+        _bindEventToVirtualTiggerNode(triggerNode.value);
         closeMethod();
       },
       { deep: true }
@@ -72,7 +80,8 @@ export function useEvenstToTiggerNode(
   onUnmounted(() => {
     watchTriggerNodeStopHandle?.();
     watchEventsStopHandle?.();
+    _unbindEventToVirtualTiggerNode(triggerNode.value);
   });
 }
 
-export default useEvenstToTiggerNode;
+export default useEvenstToTriggerNode;
