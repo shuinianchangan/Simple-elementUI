@@ -1,18 +1,29 @@
-<script setup lang="ts">
-import {
-  ErDropdown,
-  type DropdownItemProps,
-} from "../../components/Dropdown/index";
-const items: DropdownItemProps[] = [
-  { label: "Item 1" },
-  { label: "Item 2", command: "item2" },
-];
+<script lang="ts" setup>
+import { ErMessage } from "toy-element";
+
+const open1 = () => {
+  ErMessage("This is a message.");
+};
+const open2 = () => {
+  ErMessage({
+    message: "Congrats, this is a success message.",
+    type: "success",
+  });
+};
+const open3 = () => {
+  ErMessage({
+    message: "Warning, this is a warning message.",
+    type: "warning",
+  });
+};
+const open4 = () => {
+  ErMessage.error("Oops, this is a error message.");
+};
 </script>
 
 <template>
-  <er-dropdown trigger="click" splitButton :items="items">
-    <slot name="default">Split Button</slot>
-  </er-dropdown>
+  <er-button :plain="true" @click="open2">Success</er-button>
+  <er-button :plain="true" @click="open3">Warning</er-button>
+  <er-button :plain="true" @click="open1">Message</er-button>
+  <er-button :plain="true" @click="open4">Error</er-button>
 </template>
-
-<style scoped></style>

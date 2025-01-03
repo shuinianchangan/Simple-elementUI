@@ -62,7 +62,7 @@ const withDescription = computed(() => props.description || slots.default);
         >
           <slot name="title">{{ props.title }}</slot>
         </span>
-        <p class="er-alert__description">
+        <p class="er-alert__description" v-if="withDescription">
           <slot>{{ props.description }}</slot>
         </p>
         <div class="er-alert__close" v-if="props.closable">

@@ -51,14 +51,14 @@ const virtualTriggerEl = computed(() => {
 });
 
 // 检查引用链
-watch(
-  () => triggerRef.value?.ref?.value,
-  (newVal) => {
-    console.log("triggerRef:", triggerRef.value); // 检查 ButtonInstance
-    console.log("triggerRef.ref:", triggerRef.value?.ref); // 检查 ref 属性
-    console.log("triggerRef.ref.value:", newVal); // 检查最终的 DOM 元素
-  }
-);
+// watch(
+//   () => triggerRef.value?.ref?.value,
+//   (newVal) => {
+//     console.log("triggerRef:", triggerRef.value); // 检查 ButtonInstance
+//     console.log("triggerRef.ref:", triggerRef.value?.ref); // 检查 ref 属性
+//     console.log("triggerRef.ref.value:", newVal); // 检查最终的 DOM 元素
+//   }
+// );
 
 defineExpose({
   open: () => tooltipRef?.value?.show(),
