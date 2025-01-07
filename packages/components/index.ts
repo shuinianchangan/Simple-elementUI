@@ -5,3 +5,4 @@ export * from "./Alert";
 export * from "./Tooltip";
 export * from "./Popconfirm";
 export * from "./Message";
+export * from "./Notification";

@@ -1,26 +1,27 @@
 <script setup lang="ts">
-import type { MessageProps } from "./type";
 import { computed, onMounted, ref, watch } from "vue";
-import { getLastBottomOffset } from "./methods";
-import { delay, bind } from "lodash-es";
+import type { NotificationProps } from "./type";
+import { addUnit, typeIconMap, RenderVnode } from "@toy-element/utils";
+import { bind, delay } from "lodash-es";
 import { useEventListener, useOffset } from "@toy-element/hooks";
-import { addUnit, RenderVnode, typeIconMap } from "@toy-element/utils";
 import ErIcon from "../Icon/Icon.vue";
+import { getLastBottomOffset } from "./method";
 
 defineOptions({
-  name: "ErMessage",
+  name: "ErNotification",
 });
 
-const props = withDefaults(defineProps<MessageProps>(), {
+const props = withDefaults(defineProps<NotificationProps>(), {
   type: "info",
   duration: 3000,
-  offset: 10,
-  transitionName: "fade-up",
+  offset: 20,
+  transitionName: "fade",
+  showClose: true,
+  position: "top-right",
 });
 
 const visible = ref(false);
-const messageRef = ref<HTMLDivElement>();
-
+const notificationRef = ref<HTMLDivElement>();
 const iconName = computed(() => typeIconMap.get(props.type) ?? "circle-info");
 
 // div 的高度
@@ -33,8 +34,15 @@ const { topOffset, bottomOffset } = useOffset({
   boxHeight,
 });
 
+const horizontalClass = computed(() =>
+  props.position.endsWith("right") ? "right" : "left"
+);
+const verticalProperty = computed(() =>
+  props.position.startsWith("top") ? "top" : "bottom"
+);
+
 const cssStyle = computed(() => ({
-  top: addUnit(topOffset.value),
+  [verticalProperty.value]: addUnit(topOffset.value),
   zIndex: props.zIndex,
 }));
 
@@ -78,16 +86,16 @@ defineExpose({
 <template>
   <Transition
     :name="transitionName"
-    @enter="boxHeight = messageRef!.getBoundingClientRect().height"
+    @enter="boxHeight = notificationRef!.getBoundingClientRect().height"
     @after-leave="!visible && props.onDestory()"
   >
     <div
-      ref="messageRef"
-      class="er-message"
+      ref="notificationRef"
+      class="er-notification"
       :class="{
-        [`er-message--${type}`]: type,
+        [`er-notification--${type}`]: type,
         'is-close': props.showClose,
-        'text-center': props.center,
+        [horizontalClass]: true,
       }"
       :style="cssStyle"
       v-show="visible"
@@ -95,13 +103,18 @@ defineExpose({
       @mouseenter="clearTimer"
       @mouseleave="startTimmer"
     >
-      <er-icon class="er-message__icon" :icon="iconName" />
-      <div class="er-message__content">
-        <slot>
-          <render-vnode v-if="props.message" :vNode="props.message" />
-        </slot>
+      <er-icon class="er-notification__icon" :icon="iconName" />
+      <div class="er-notification__text">
+        <div class="er-notification__title">{{ props.title }}</div>
+        <div class="er-notification__content">
+          <slot>
+            <!-- 只有message可能传递一个方法，所以需要通过renderVnode来进行处理 -->
+            <render-vnode v-if="props.message" :vNode="props.message" />
+          </slot>
+        </div>
       </div>
-      <div class="er-message__close" v-if="showClose">
+
+      <div class="er-notification__close" v-if="props.showClose">
         <er-icon icon="xmark" @click.stop="close" />
       </div>
     </div>
