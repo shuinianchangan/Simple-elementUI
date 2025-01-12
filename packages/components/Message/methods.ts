@@ -45,7 +45,7 @@ function createMessage(props: CreateMessageProps): MessageInstance {
     instances.splice(idx, 1);
     render(null, container);
   };
-  const _props = {
+  const _props: MessageProps = {
     ...props,
     id,
     zIndex: nextZIndex(),
