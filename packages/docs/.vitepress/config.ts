@@ -9,7 +9,7 @@ export default defineConfig({
   title: "Simple-ElementUI",
   description: "基于Vue3 高仿 element-ui 组件库",
   appearance: false, // 关闭 darkMode @todo 深色模式完成后打开
-  base: "/toy-element/",
+  base: "/Simple-elementUI/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
