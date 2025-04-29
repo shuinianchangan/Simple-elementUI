@@ -1,5 +1,5 @@
 name: Test and deploy
-# 进行一个自动化的工作流，将写好的wiki挂载到github上
+
 on:
   push:
     branches:
@@ -24,7 +24,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run tests
-        run: npm run test
+        run: pnpm test
 
   build:
     name: Build docs
@@ -45,13 +45,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build docs
-        run: npm run docs:build
+        run: pnpm docs:build
 
       - name: Upload docs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docs
-          path: packages/docs/dist
+          path: ./packages/docs/.vitepress/dist
 
   deploy:
     name: Deploy to GitHub Pages
@@ -59,7 +59,7 @@ jobs:
     needs: build
     steps:
       - name: Download docs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docs
 
