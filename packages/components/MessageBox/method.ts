@@ -1,26 +1,34 @@
 import {
   createVNode,
-  h,
   isVNode,
   ref,
   render,
+  nextTick,
   type ComponentPublicInstance,
   type VNode,
   type VNodeProps,
 } from "vue";
 import type {
-  MessageBoxProps,
-  MessageBoxOptions,
   MessageBoxAction,
+  MessageBoxOptions,
+  MessageBoxData,
   MessageBoxCallback,
+  MessageBoxProps,
   IErMessageBox,
-  MessageBoxInputData,
 } from "./type";
 import MessageBoxConstructor from "./MessageBox.vue";
-import { isFunction, isString } from "lodash-es";
+import {
+  assign,
+  each,
+  isFunction,
+  isObject,
+  isString,
+  isUndefined,
+  set,
+} from "lodash-es";
 
-const MessageBoxInstanceMap = new Map<
-  ComponentPublicInstance,
+const messageInstanceMap = new Map<
+  ComponentPublicInstance<{ doClose: () => void }>,
   {
     options: MessageBoxOptions;
     callback: MessageBoxCallback | void;
@@ -29,34 +37,79 @@ const MessageBoxInstanceMap = new Map<
   }
 >();
 
-function createInstance(props: MessageBoxProps, container: HTMLElement) {
+function initInstance(props: MessageBoxProps, container: HTMLElement) {
   const visible = ref(false);
-  //   props.message函数的返回值也是VNode
   const isVNodeMsg = isFunction(props?.message) || isVNode(props?.message);
-  const genDefaultMessage = (message: VNode | (() => VNode)) => {
-    if (isFunction(message)) {
-      return message();
-    }
-    return message;
-  };
+  const genDefaultSlot = (message: VNode | (() => VNode)) =>
+    isFunction(message) ? message : () => message;
+
   const vnode = createVNode(
     MessageBoxConstructor,
     {
       ...props,
       visible,
     } as VNodeProps,
-    isVNodeMsg ? { default: genDefaultMessage(props.message as VNode) } : void 0
+    isVNodeMsg ? { default: genDefaultSlot(props.message as VNode) } : void 0,
   );
-  //   const VNode = h(MessageBoxConstructor, {
-  //     ...props,
-  //     visible,
-  //   });
   render(vnode, container);
   document.body.appendChild(container.firstElementChild!);
   return vnode.component;
 }
 
-function MessageBox(options: MessageBoxOptions): Promise<MessageBoxInputData>;
+function genContainer() {
+  return document.createElement("div");
+}
+
+function showMessage(options: MessageBoxOptions) {
+  const container = genContainer();
+  const props: MessageBoxProps = {
+    ...options,
+    doClose: () => {
+      vm.visible.value = false;
+    },
+    doAction: (action: MessageBoxAction, inputVal: string) => {
+      const currentMsg = messageInstanceMap.get(vm);
+      let resolve:
+        | MessageBoxAction
+        | { value: string; action: MessageBoxAction };
+
+      if (options.showInput) {
+        resolve = { value: inputVal, action: action };
+      } else {
+        resolve = action;
+      }
+
+      nextTick(() => vm.doClose());
+
+      if (options.callback) {
+        options.callback(resolve);
+        return;
+      }
+      if (action === "cancel" || action === "close") {
+        if (currentMsg) {
+          currentMsg.reject(action);
+        }
+        return;
+      }
+      if (currentMsg) {
+        currentMsg.resolve(resolve);
+      }
+    },
+    destroy: () => {
+      render(null, container);
+      messageInstanceMap.delete(vm);
+    },
+  };
+
+  const instance = initInstance(props as MessageBoxProps, container);
+
+  const vm = instance?.proxy as ComponentPublicInstance<any>;
+
+  vm.visible.value = true;
+  return vm;
+}
+
+async function MessageBox(options: MessageBoxOptions): Promise<MessageBoxData>;
 
 function MessageBox(options: MessageBoxOptions | string | VNode): Promise<any> {
   let callback: MessageBoxCallback | void;
@@ -70,6 +123,67 @@ function MessageBox(options: MessageBoxOptions | string | VNode): Promise<any> {
 
   return new Promise((resolve, reject) => {
     const vm = showMessage(options);
-    MessageBoxInstanceMap.set(vm, { options, callback, resolve, reject });
+    messageInstanceMap.set(vm, { options, callback, resolve, reject });
   });
 }
+
+const MESSAGE_BOX_VARIANTS = ["alert", "confirm", "prompt"] as const;
+const MESSAGE_BOX_DEFAULT_OPTS: Record<
+  (typeof MESSAGE_BOX_VARIANTS)[number],
+  Partial<MessageBoxOptions>
+> = {
+  alert: { closeOnClickModal: false },
+  confirm: { showCancelButton: true },
+  prompt: { showCancelButton: true, showInput: true },
+};
+
+each(MESSAGE_BOX_VARIANTS, (type) =>
+  set(MessageBox, type, messageBoxFactory(type)),
+);
+
+function messageBoxFactory(boxType: (typeof MESSAGE_BOX_VARIANTS)[number]) {
+  return (
+    message: string | VNode,
+    title: string | MessageBoxOptions,
+    options: MessageBoxOptions,
+  ) => {
+    let titleOrOpts = "";
+    if (isObject(title)) {
+      options = title as MessageBoxOptions;
+      titleOrOpts = "";
+    } else if (isUndefined(title)) {
+      titleOrOpts = "";
+    } else {
+      titleOrOpts = title as string;
+    }
+
+    return MessageBox(
+      assign(
+        {
+          title: titleOrOpts,
+          message,
+          type: "",
+          boxType,
+          ...MESSAGE_BOX_DEFAULT_OPTS[boxType],
+        },
+        options,
+      ),
+    );
+  };
+}
+
+set(MessageBox, "close", () => {
+  messageInstanceMap.forEach((_, vm) => {
+    vm.doClose();
+  });
+  messageInstanceMap.clear();
+  // 清除DOM中的所有MessageBox元素
+  const containers = document.querySelectorAll(".er-message-box");
+  containers.forEach((container) => {
+    if (container.parentNode && container.parentNode.parentNode) {
+      document.body.removeChild(container.parentNode.parentNode);
+    }
+  });
+});
+
+export default MessageBox as IErMessageBox;

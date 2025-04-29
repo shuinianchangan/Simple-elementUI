@@ -1,0 +1,302 @@
+{
+  "v": 5,
+  "entries": {
+    "example-alert--docs": {
+      "id": "example-alert--docs",
+      "title": "Example/Alert",
+      "name": "Docs",
+      "importPath": "./src/stories/Alert.stories.ts",
+      "type": "docs",
+      "tags": ["dev", "test", "autodocs"],
+      "storiesImports": []
+    },
+    "example-alert--default": {
+      "type": "story",
+      "id": "example-alert--default",
+      "name": "Default",
+      "title": "Example/Alert",
+      "importPath": "./src/stories/Alert.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-button--docs": {
+      "id": "example-button--docs",
+      "title": "Example/Button",
+      "name": "Docs",
+      "importPath": "./src/stories/Button.stories.ts",
+      "type": "docs",
+      "tags": ["dev", "test", "autodocs", "play-fn"],
+      "storiesImports": []
+    },
+    "example-button--default": {
+      "type": "story",
+      "id": "example-button--default",
+      "name": "Default",
+      "title": "Example/Button",
+      "importPath": "./src/stories/Button.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs", "play-fn"]
+    },
+    "example-button--circle": {
+      "type": "story",
+      "id": "example-button--circle",
+      "name": "Circle",
+      "title": "Example/Button",
+      "importPath": "./src/stories/Button.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs", "play-fn"]
+    },
+    "example-button--group": {
+      "type": "story",
+      "id": "example-button--group",
+      "name": "Group",
+      "title": "Example/Button",
+      "importPath": "./src/stories/Button.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs", "play-fn"]
+    },
+    "example-collapse--docs": {
+      "id": "example-collapse--docs",
+      "title": "Example/Collapse",
+      "name": "Docs",
+      "importPath": "./src/stories/Collapse.stories.ts",
+      "type": "docs",
+      "tags": ["dev", "test", "autodocs"],
+      "storiesImports": []
+    },
+    "example-collapse--default": {
+      "type": "story",
+      "id": "example-collapse--default",
+      "name": "Default",
+      "title": "Example/Collapse",
+      "importPath": "./src/stories/Collapse.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-dropdown--docs": {
+      "id": "example-dropdown--docs",
+      "title": "Example/Dropdown",
+      "name": "Docs",
+      "importPath": "./src/stories/Dropdown.stories.ts",
+      "type": "docs",
+      "tags": ["dev", "test", "autodocs"],
+      "storiesImports": []
+    },
+    "example-dropdown--default": {
+      "type": "story",
+      "id": "example-dropdown--default",
+      "name": "Default",
+      "title": "Example/Dropdown",
+      "importPath": "./src/stories/Dropdown.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-dropdown--split-button": {
+      "type": "story",
+      "id": "example-dropdown--split-button",
+      "name": "Split Button",
+      "title": "Example/Dropdown",
+      "importPath": "./src/stories/Dropdown.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-input--docs": {
+      "id": "example-input--docs",
+      "title": "Example/Input",
+      "name": "Docs",
+      "importPath": "./src/stories/Input.stories.ts",
+      "type": "docs",
+      "tags": ["dev", "test", "autodocs"],
+      "storiesImports": []
+    },
+    "example-input--default": {
+      "type": "story",
+      "id": "example-input--default",
+      "name": "Default",
+      "title": "Example/Input",
+      "importPath": "./src/stories/Input.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-input--password": {
+      "type": "story",
+      "id": "example-input--password",
+      "name": "Password",
+      "title": "Example/Input",
+      "importPath": "./src/stories/Input.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-input--clearable": {
+      "type": "story",
+      "id": "example-input--clearable",
+      "name": "Clearable",
+      "title": "Example/Input",
+      "importPath": "./src/stories/Input.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-message--docs": {
+      "id": "example-message--docs",
+      "title": "Example/Message",
+      "name": "Docs",
+      "importPath": "./src/stories/Message.stories.ts",
+      "type": "docs",
+      "tags": ["dev", "test", "autodocs"],
+      "storiesImports": []
+    },
+    "example-message--basic": {
+      "type": "story",
+      "id": "example-message--basic",
+      "name": "Basic",
+      "title": "Example/Message",
+      "importPath": "./src/stories/Message.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-message--different-types": {
+      "type": "story",
+      "id": "example-message--different-types",
+      "name": "Different Types",
+      "title": "Example/Message",
+      "importPath": "./src/stories/Message.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-messagebox--docs": {
+      "id": "example-messagebox--docs",
+      "title": "Example/MessageBox",
+      "name": "Docs",
+      "importPath": "./src/stories/MessageBox.stories.ts",
+      "type": "docs",
+      "tags": ["dev", "test", "autodocs"],
+      "storiesImports": []
+    },
+    "example-messagebox--alert": {
+      "type": "story",
+      "id": "example-messagebox--alert",
+      "name": "Alert",
+      "title": "Example/MessageBox",
+      "importPath": "./src/stories/MessageBox.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-messagebox--confirm": {
+      "type": "story",
+      "id": "example-messagebox--confirm",
+      "name": "Confirm",
+      "title": "Example/MessageBox",
+      "importPath": "./src/stories/MessageBox.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-messagebox--prompt": {
+      "type": "story",
+      "id": "example-messagebox--prompt",
+      "name": "Prompt",
+      "title": "Example/MessageBox",
+      "importPath": "./src/stories/MessageBox.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-messagebox--custom-content": {
+      "type": "story",
+      "id": "example-messagebox--custom-content",
+      "name": "Custom Content",
+      "title": "Example/MessageBox",
+      "importPath": "./src/stories/MessageBox.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-notification--docs": {
+      "id": "example-notification--docs",
+      "title": "Example/Notification",
+      "name": "Docs",
+      "importPath": "./src/stories/Notification.stories.ts",
+      "type": "docs",
+      "tags": ["dev", "test", "autodocs"],
+      "storiesImports": []
+    },
+    "example-notification--basic": {
+      "type": "story",
+      "id": "example-notification--basic",
+      "name": "Basic",
+      "title": "Example/Notification",
+      "importPath": "./src/stories/Notification.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-notification--with-type": {
+      "type": "story",
+      "id": "example-notification--with-type",
+      "name": "With Type",
+      "title": "Example/Notification",
+      "importPath": "./src/stories/Notification.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-notification--with-position": {
+      "type": "story",
+      "id": "example-notification--with-position",
+      "name": "With Position",
+      "title": "Example/Notification",
+      "importPath": "./src/stories/Notification.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-notification--with-duration": {
+      "type": "story",
+      "id": "example-notification--with-duration",
+      "name": "With Duration",
+      "title": "Example/Notification",
+      "importPath": "./src/stories/Notification.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-popconfirm--docs": {
+      "id": "example-popconfirm--docs",
+      "title": "Example/Popconfirm",
+      "name": "Docs",
+      "importPath": "./src/stories/Popconfirm.stories.ts",
+      "type": "docs",
+      "tags": ["dev", "test", "autodocs"],
+      "storiesImports": []
+    },
+    "example-popconfirm--default": {
+      "type": "story",
+      "id": "example-popconfirm--default",
+      "name": "Default",
+      "title": "Example/Popconfirm",
+      "importPath": "./src/stories/Popconfirm.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-tooltip--docs": {
+      "id": "example-tooltip--docs",
+      "title": "Example/Tooltip",
+      "name": "Docs",
+      "importPath": "./src/stories/Tooltip.stories.ts",
+      "type": "docs",
+      "tags": ["dev", "test", "autodocs"],
+      "storiesImports": []
+    },
+    "example-tooltip--default": {
+      "type": "story",
+      "id": "example-tooltip--default",
+      "name": "Default",
+      "title": "Example/Tooltip",
+      "importPath": "./src/stories/Tooltip.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    },
+    "example-tooltip--virtual-trigger": {
+      "type": "story",
+      "id": "example-tooltip--virtual-trigger",
+      "name": "Virtual Trigger",
+      "title": "Example/Tooltip",
+      "importPath": "./src/stories/Tooltip.stories.ts",
+      "componentPath": "toy-element",
+      "tags": ["dev", "test", "autodocs"]
+    }
+  }
+}

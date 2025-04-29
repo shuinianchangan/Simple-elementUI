@@ -35,10 +35,10 @@ const { topOffset, bottomOffset } = useOffset({
 });
 
 const horizontalClass = computed(() =>
-  props.position.endsWith("right") ? "right" : "left"
+  props.position.endsWith("right") ? "right" : "left",
 );
 const verticalProperty = computed(() =>
-  props.position.startsWith("top") ? "top" : "bottom"
+  props.position.startsWith("top") ? "top" : "bottom",
 );
 
 const cssStyle = computed(() => ({

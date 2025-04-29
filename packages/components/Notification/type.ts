@@ -26,7 +26,7 @@ export type NotificationFn = {
 };
 
 export type NotificationTypeFn = (
-  props: NotificationParams
+  props: NotificationParams,
 ) => NotificationHandler;
 
 // 定义Message的外部函数

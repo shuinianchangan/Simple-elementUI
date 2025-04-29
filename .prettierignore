@@ -1,0 +1,8 @@
+# 构建输出
+dist
+coverage
+.vitepress/dist
+.vitepress/cache
+
+# 依赖
+node_modules

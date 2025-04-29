@@ -21,12 +21,12 @@ watch(
     if (props.accordion && Array.isArray(val) && val.length > 1) {
       debugWarn(
         "ErCollapse",
-        "accordion mode should only have one active item"
+        "accordion mode should only have one active item",
       );
       return;
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 function handleItemClick(item: CollapseItemName) {

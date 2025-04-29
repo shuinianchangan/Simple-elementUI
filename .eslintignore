@@ -1,0 +1,6 @@
+# 构建输出
+dist
+coverage
+
+# 依赖
+node_modules

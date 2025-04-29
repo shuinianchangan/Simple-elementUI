@@ -23,7 +23,7 @@ const inputRef = ref<HTMLInputElement | null>();
 const textareaRef = ref<HTMLTextAreaElement | null>();
 
 const _ref = computed(() =>
-  inputRef.value ? inputRef.value : textareaRef.value
+  inputRef.value ? inputRef.value : textareaRef.value,
 ) as Ref;
 
 const { wrapper, isFocused, handleFocus, handleBlur } = useFocusController(
@@ -33,7 +33,7 @@ const { wrapper, isFocused, handleFocus, handleBlur } = useFocusController(
       // todo表单校验
       console.log("afterFocus");
     },
-  }
+  },
 );
 
 const attrs = useAttrs();
@@ -44,7 +44,7 @@ const showClear = computed(
     props.clearable &&
     !!innerValue.value &&
     !isDisabled.value &&
-    isFocused.value
+    isFocused.value,
 );
 const showPassword = computed(() => props.showPassword);
 const showPasswordArea = computed(() => {
@@ -101,7 +101,7 @@ watch(
   () => props.modelValue,
   (value) => {
     innerValue.value = value;
-  }
+  },
 );
 </script>
 

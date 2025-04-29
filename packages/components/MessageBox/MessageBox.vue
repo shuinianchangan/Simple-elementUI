@@ -12,11 +12,6 @@ import ErIcon from "../Icon/Icon.vue";
 import ErButton from "../Button/Button.vue";
 import ErInput from "../Input/Input.vue";
 
-defineOptions({
-  name: "ErMessageBox",
-  inheritAttrs: false,
-});
-
 const props = withDefaults(defineProps<MessageBoxProps>(), {
   lockScroll: true,
   showClose: true,
@@ -32,29 +27,36 @@ const props = withDefaults(defineProps<MessageBoxProps>(), {
 });
 const { doAction } = props;
 
+const headerRef = ref<HTMLElement>();
+const inputRef = ref<InputInstance>();
+
+const inputId = useId();
 const { nextZIndex } = useZIndex();
+
 const state = reactive({
   ...props,
   zIndex: nextZIndex(),
 });
 
-const hasMessage = computed(() => isNil(props.message));
-const iconComponent = computed(() => {
-  return props.icon ?? typeIconMap.get(props.type ?? "");
-});
+const hasMessage = computed(() => !!state.message);
+const iconComponent = computed(
+  () => state.icon ?? typeIconMap.get(state.type ?? ""),
+);
 
-const headerRef = ref<HTMLElement>();
-const inputRef = ref<InputInstance>();
-const inputId = useId();
+watch(
+  () => props.visible?.value,
+  (val) => {
+    if (val) state.zIndex = nextZIndex();
 
-function handleAction(action: MessageBoxAction) {
-  isFunction(props.beforeClose)
-    ? props.beforeClose(action, state, () => doAction(action, state.inputValue))
-    : doAction(action, state.inputValue);
-}
-function handleClose() {
-  handleAction("close");
-}
+    if (props.boxType !== "prompt") return;
+
+    if (!val) return;
+
+    nextTick(() => {
+      inputRef.value && inputRef.value.focus();
+    });
+  },
+);
 
 function handleWrapperClick() {
   props.closeOnClickModal && handleAction("close");
@@ -66,19 +68,15 @@ function handleInputEnter(e: KeyboardEvent) {
   return handleAction("confirm");
 }
 
-watch(
-  () => props.visible?.value,
-  (val) => {
-    if (!val) return;
-    else state.zIndex = nextZIndex();
-    // 不是prompt类型，不聚焦
-    if (props.boxType !== "prompt") return;
-    else
-      nextTick(() => {
-        inputRef.value && inputRef.value.focus();
-      });
-  }
-);
+function handleAction(action: MessageBoxAction) {
+  isFunction(props.beforeClose)
+    ? props.beforeClose(action, state, () => doAction(action, state.inputValue))
+    : doAction(action, state.inputValue);
+}
+
+function handleClose() {
+  handleAction("close");
+}
 </script>
 
 <template>
@@ -94,26 +92,26 @@ watch(
           :class="[
             'er-message-box',
             {
-              'is-center': props.center,
+              'is-center': state.center,
             },
           ]"
           @click.stop
         >
           <div
-            v-if="!isNil(props.title)"
+            v-if="!isNil(state.title)"
             ref="headerRef"
             class="er-message-box__header"
-            :class="{ 'show-close': props.showClose }"
+            :class="{ 'show-close': state.showClose }"
           >
             <div class="er-message-box__title">
               <er-icon
-                v-if="iconComponent && props.center"
+                v-if="iconComponent && state.center"
                 :class="{
-                  [`er-icon-${props.type}`]: props.type,
+                  [`er-icon-${state.type}`]: state.type,
                 }"
                 :icon="iconComponent"
               />
-              {{ props.title }}
+              {{ state.title }}
             </div>
             <button
               v-if="showClose"
@@ -125,54 +123,52 @@ watch(
           </div>
           <div class="er-message-box__content">
             <er-icon
-              v-if="iconComponent && !props.center && hasMessage"
+              v-if="iconComponent && !state.center && hasMessage"
               :class="{
-                [`er-icon-${props.type}`]: props.type,
+                [`er-icon-${state.type}`]: state.type,
               }"
               :icon="iconComponent"
             />
             <div v-if="hasMessage" class="er-message-box__message">
               <slot>
-                <!-- 通过for属性绑定inputId -->
-                <!-- 需要用户输入时，使用label，而只展示消息时，使用p -->
                 <component
-                  :is="props.showInput ? 'label' : 'p'"
-                  :for="props.showInput ? inputId : void 0"
+                  :is="state.showInput ? 'label' : 'p'"
+                  :for="state.showInput ? inputId : void 0"
                 >
-                  {{ props.message }}
+                  {{ state.message }}
                 </component>
               </slot>
             </div>
           </div>
-          <div v-show="props.showInput" class="er-message-box__input">
+          <div v-show="state.showInput" class="er-message-box__input">
             <er-input
-              v-model="props.inputValue"
+              v-model="state.inputValue"
               ref="inputRef"
-              :placeholder="props.inputPlaceholder"
-              :type="props.inputType"
+              :placeholder="state.inputPlaceholder"
+              :type="state.inputType"
               @keyup.enter="handleInputEnter"
             />
           </div>
           <div class="er-message-box__footer">
             <er-button
-              v-if="props.showCancelButton"
+              v-if="state.showCancelButton"
               class="er-message-box__footer-btn er-message-box__cancel-btn"
-              :type="props.cancelButtonType"
-              :round="props.roundButton"
-              :loading="props.cancelButtonLoading"
+              :type="state.cancelButtonType"
+              :round="state.roundButton"
+              :loading="state.cancelButtonLoading"
               @click="handleAction('cancel')"
               @keydown.prevent.enter="handleAction('cancel')"
-              >{{ props.cancelButtonText }}</er-button
+              >{{ state.cancelButtonText }}</er-button
             >
             <er-button
-              v-show="props.showConfirmButton"
+              v-show="state.showConfirmButton"
               class="er-message-box__footer-btn er-message-box__confirm-btn"
-              :type="props.confirmButtonType ?? 'primary'"
-              :round="props.roundButton"
-              :loading="props.confirmButtonLoading"
+              :type="state.confirmButtonType ?? 'primary'"
+              :round="state.roundButton"
+              :loading="state.confirmButtonLoading"
               @click="handleAction('confirm')"
               @keydown.prevent.enter="handleAction('confirm')"
-              >{{ props.confirmButtonText }}</er-button
+              >{{ state.confirmButtonText }}</er-button
             >
           </div>
         </div>
@@ -181,4 +177,6 @@ watch(
   </transition>
 </template>
 
-<style scoped></style>
+<style scoped>
+@import "./style.css";
+</style>

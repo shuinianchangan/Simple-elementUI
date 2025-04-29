@@ -17,7 +17,7 @@ provide(
     size: toRef(props, "size"),
     type: toRef(props, "type"),
     disabled: toRef(props, "disabled"),
-  })
+  }),
 );
 </script>
 

@@ -11,7 +11,7 @@ export function useId(namespace: string = "er"): Ref<string> {
     () =>
       `${namespace}-id-${
         defaultIdInjection.prefix
-      }-${defaultIdInjection.current++}`
+      }-${defaultIdInjection.current++}`,
   );
 
   return idRef;

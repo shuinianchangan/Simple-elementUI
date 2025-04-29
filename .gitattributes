@@ -1,0 +1,15 @@
+# 设置默认行为，以防人们没有设置 core.autocrlf
+* text=auto
+
+# 明确声明应该规范化的文本文件
+*.js text
+*.ts text
+*.tsx text
+*.vue text
+*.json text
+*.md text
+*.css text
+*.scss text
+*.html text
+*.yml text
+*.yaml text

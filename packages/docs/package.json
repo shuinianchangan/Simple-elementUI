@@ -2,17 +2,15 @@
   "name": "@toy-element/docs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "main": "index.md",
   "scripts": {
-    "test": "vitest --coverage",
-    "dev": "vitepress dev .",
-    "build": "vitepress build .",
-    "preview": "vitepress preview ."
+    "dev": "vitepress dev ./",
+    "build": "vitepress build ./"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "vitepress": "1.0.0-rc.44"
+    "@vitepress-demo-preview/component": "^2.3.2",
+    "@vitepress-demo-preview/plugin": "^1.2.3",
+    "vitepress": "1.1.4"
   }
 }

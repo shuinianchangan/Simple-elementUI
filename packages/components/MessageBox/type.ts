@@ -5,7 +5,7 @@ import { type ButtonType } from "../Button/type";
 export type MessageBoxAction = "confirm" | "cancel" | "close";
 export type MessageBoxType = "" | "prompt" | "alert" | "confirm";
 export type MessageBoxCallback = (
-  action: MessageBoxAction | { value: string; action: MessageBoxAction }
+  action: MessageBoxAction | { value: string; action: MessageBoxAction },
 ) => void;
 
 export type MessageBoxInputData = {
@@ -14,7 +14,7 @@ export type MessageBoxInputData = {
 };
 
 // 函数式调用返回值，使得多一种字符串类型返回值
-// export type MessageBoxData = MessageBoxInputData & MessageBoxAction;
+export type MessageBoxData = MessageBoxInputData & MessageBoxAction;
 
 // 函数式调用参数
 export interface MessageBoxOptions {
@@ -51,7 +51,7 @@ export interface MessageBoxOptions {
   beforeClose?: (
     action: MessageBoxAction,
     instance: MessageBoxOptions,
-    done: () => void
+    done: () => void,
   ) => void;
 }
 
@@ -67,11 +67,11 @@ export interface MessageBoxProps extends MessageBoxOptions {
 export type MessageBoxShortcutMethod = ((
   message: MessageBoxOptions["message"],
   title: MessageBoxOptions["title"],
-  options?: MessageBoxOptions
+  options?: MessageBoxOptions,
 ) => Promise<MessageBoxInputData>) & // MessageBoxData
   ((
     message: MessageBoxOptions["message"],
-    options?: MessageBoxOptions
+    options?: MessageBoxOptions,
   ) => Promise<MessageBoxInputData>); // MessageBoxData
 
 export interface IErMessageBox {

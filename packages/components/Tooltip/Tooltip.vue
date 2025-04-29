@@ -60,10 +60,10 @@ const popperOptions = computed(() => ({
 
 // 只有"hover"需要延时，防止在文本和弹出之间出现闪烁
 const openDelay = computed(() =>
-  props.trigger === "hover" ? props.showTimeout : 0
+  props.trigger === "hover" ? props.showTimeout : 0,
 );
 const closeDelay = computed(() =>
-  props.trigger === "hover" ? props.hideTimeout : 0
+  props.trigger === "hover" ? props.hideTimeout : 0,
 );
 
 let openDebounce: DebouncedFunc<() => void> | void;
@@ -145,11 +145,11 @@ watch(
       popperInstance = createPopper(
         triggerNode.value,
         popperNode.value,
-        popperOptions.value
+        popperOptions.value,
       );
     }
   },
-  { flush: "post" }
+  { flush: "post" },
 );
 
 // getter函数方式 (() => props.manual)，
@@ -168,12 +168,12 @@ watch(
       return;
     }
     attachEvents(props.trigger);
-  }
+  },
 );
 
 watch(
   () => props.trigger,
-  () => resetEvents()
+  () => resetEvents(),
 );
 
 watch(
@@ -185,7 +185,7 @@ watch(
     visible.value = false;
     emit("visible-change", false);
     resetEvents();
-  }
+  },
 );
 
 // 初始化openDelay并且监听变化，随时修改

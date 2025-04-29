@@ -117,7 +117,7 @@ describe("MessageBox Component", () => {
 
     const input = document.querySelector("input") as HTMLInputElement;
     input.value = "Test Input";
-    input.dispatchEvent(new Event("input"));
+    input.dispatchEvent(new Event("input", { bubbles: true }));
 
     const confirmBtn = document.querySelector(
       ".er-message-box__confirm-btn"

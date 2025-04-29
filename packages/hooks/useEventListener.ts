@@ -11,7 +11,7 @@ import {
 export default function useEventListener(
   target: MaybeRef<EventTarget | HTMLElement | void>,
   event: string,
-  handler: (e: Event) => any
+  handler: (e: Event) => any,
 ) {
   if (isRef(target)) {
     watch(target, (val, oldVal) => {

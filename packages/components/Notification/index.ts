@@ -3,6 +3,6 @@ import Notification from "./method";
 
 export const ErNotification = withInstallFunction(
   Notification,
-  "$notification"
+  "$notification",
 );
 export * from "./type";

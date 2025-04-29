@@ -19,7 +19,7 @@ export function useEvenstToTriggerNode(
   props: TooltipProps & { virtualTriggering?: boolean },
   triggerNode: ComputedRef<HTMLElement | undefined>,
   events: Ref<Record<string, EventListener>>,
-  closeMethod: () => void
+  closeMethod: () => void,
 ) {
   // 存储watch停止函数
   let watchEventsStopHandle: WatchStopHandle | void;
@@ -33,8 +33,6 @@ export function useEvenstToTriggerNode(
         _eventHandleMap.set(event, fn);
         el?.addEventListener(event as keyof HTMLElementEventMap, fn);
       });
-
-    console.log("el", el);
   };
 
   const _unbindEventToVirtualTiggerNode = (el?: HTMLElement) => {
@@ -43,7 +41,7 @@ export function useEvenstToTriggerNode(
         ["mouseenter", "click", "contextmenu"],
         (key) =>
           _eventHandleMap.has(key) &&
-          el?.removeEventListener(key, _eventHandleMap.get(key))
+          el?.removeEventListener(key, _eventHandleMap.get(key)),
       );
   };
 
@@ -61,7 +59,7 @@ export function useEvenstToTriggerNode(
           _bindEventToVirtualTiggerNode(newNode);
         }
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     // 监听事件映射表的变化
@@ -73,7 +71,7 @@ export function useEvenstToTriggerNode(
         _bindEventToVirtualTiggerNode(triggerNode.value);
         closeMethod();
       },
-      { deep: true }
+      { deep: true },
     );
   });
 

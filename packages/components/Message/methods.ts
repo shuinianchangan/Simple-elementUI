@@ -108,7 +108,7 @@ each(messageTypes, (type) =>
   set(message, type, (options: MessageParams) => {
     const normalized = normalizeOptions(options);
     return message({ ...normalized, type });
-  })
+  }),
 );
 
 message.closeAll = closeAll;

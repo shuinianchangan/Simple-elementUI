@@ -25,7 +25,7 @@ const notificationDefaults = {
 const { nextZIndex } = useZIndex();
 
 function normalizeOptions(
-  options: NotificationParams
+  options: NotificationParams,
 ): CreateNotificationProps {
   const result =
     !options || isVNode(options) || isString(options)
@@ -45,7 +45,7 @@ const getInstancesByPosition = (position: NotificationProps["position"]) =>
   instancesMap.get(position)!;
 
 function createNotification(
-  props: CreateNotificationProps
+  props: CreateNotificationProps,
 ): NotificationInstance {
   const id = useId().value;
   const container = document.createElement("div");
@@ -90,7 +90,7 @@ function createNotification(
 }
 
 export const notification: NotificationFn & Partial<Notification> = function (
-  options: NotificationParams
+  options: NotificationParams,
 ): NotificationHandler {
   const instance = createNotification(normalizeOptions(options));
   return instance.handler;

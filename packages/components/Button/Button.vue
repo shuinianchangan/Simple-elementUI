@@ -64,8 +64,9 @@ defineExpose<ButtonInstance>({
     }"
     :disabled="props.disabled || props.loading ? true : void 0"
     :type="props.tag === 'button' ? props.nativeType : void 0"
-    @click="(e: MouseEvent) =>
-        useThrottle ? handClickThrottle(e) : handClick(e)"
+    @click="
+      (e: MouseEvent) => (useThrottle ? handClickThrottle(e) : handClick(e))
+    "
   >
     <template v-if="props.loading">
       <slot name="loading">

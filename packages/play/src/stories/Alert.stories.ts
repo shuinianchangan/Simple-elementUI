@@ -49,7 +49,7 @@ export const Default: Story & { args: { visible: boolean } } = {
           } else {
             alertRef.value?.close();
           }
-        }
+        },
       );
       return { args, alertRef };
     },

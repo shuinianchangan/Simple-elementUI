@@ -77,7 +77,7 @@ export const Default: Story & { args: { content: string } } = {
       return { args };
     },
     template: container(
-      `<er-button v-bind="args">{{args.content}}</er-button>`
+      `<er-button v-bind="args">{{args.content}}</er-button>`,
     ),
   }),
   // 进行一些自动化测试

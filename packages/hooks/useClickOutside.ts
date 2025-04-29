@@ -3,7 +3,7 @@ import useEventListener from "./useEventListener.ts";
 
 export default function useClickOutside(
   elementRef: Ref<HTMLElement | void>,
-  callback: (e: MouseEvent) => void
+  callback: (e: MouseEvent) => void,
 ) {
   // 如果点击在元素外，则调用callback函数
   useEventListener(document, "click", (e: Event) => {

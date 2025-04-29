@@ -10,7 +10,7 @@ interface UseFocusControllerOptions {
 
 export function useFocusController<T extends HTMLElement | { focus(): void }>(
   target: Ref<T | void>,
-  options: UseFocusControllerOptions = {}
+  options: UseFocusControllerOptions = {},
 ) {
   const { afterFocus, beforeBlur, afterBlur } = options;
   const instance = getCurrentInstance()!;

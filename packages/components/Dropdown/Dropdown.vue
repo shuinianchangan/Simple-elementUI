@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<DropdownProps>(), {
   items: () => [] as DropdownItemProps[],
 });
 const tooltipProps = computed(() =>
-  omit(props, ["type", "size", "splitButton", "hideOnClick", "items"])
+  omit(props, ["type", "size", "splitButton", "hideOnClick", "items"]),
 );
 
 // 控制tooltips的显示和隐藏
